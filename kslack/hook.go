@@ -33,7 +33,7 @@ type ErrorConfig struct {
 	total int
 }
 
-func NewSlackrusHook(serviceName string, configs ...ErrorConfig) *Hook {
+func NewHook(serviceName string, configs ...ErrorConfig) *Hook {
 	hook := &Hook{
 		ServiceName:serviceName,
 		Channel:    channel,

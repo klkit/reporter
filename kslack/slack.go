@@ -4,6 +4,7 @@ package kslack
 import (
 	"fmt"
 	"github.com/nlopes/slack"
+	"os"
 )
 
 var (
@@ -139,43 +140,14 @@ func (c *slacker) Critical(msg string, args ...interface{}) {
 
 }
 
-func (c *slacker) SetDev() {
-	apiKey = "xoxp-685696288598-672151870147-683127053956-191603b65e16df541fa64a495e7e1fe0"
-	channel = "#reporter"
-}
-
-func (c *slacker) SetProd() {
-	apiKey = "xoxp-158475431284-672224707747-701240168402-8afa211fb45e823da4d6e16d7ca40b66"
-	channel = "#messaging_report"
-}
-
 func SlackInstance() *slacker {
-	/*
-		BMC_KEY: xoxp-158475431284-672224707747-701240168402-8afa211fb45e823da4d6e16d7ca40b66
-		PRIVATE_KEY: xoxp-685696288598-672151870147-683127053956-191603b65e16df541fa64a495e7e1fe0
-	*/
-
 	slacker := &slacker{}
-	slacker.SetDev()
+	apiKey = os.Getenv("SLACK_API_KEY")
+	channel = os.Getenv("SLACK_CHANNEL")
+	fmt.Println("Key ", apiKey)
+	fmt.Println("Key ", apiKey)
 	slacker.api = slack.New(apiKey, slack.OptionDebug(true))
 	return slacker
-}
-
-type CSlack interface {
-	Report()
-
-	Error()
-	Warn()
-	Critical()
-}
-
-type cSlack struct {
-
-}
-
-
-func NewSlacker(conf slackNotifyConfig) CSlack {
-	return nil
 }
 
 //region Object
