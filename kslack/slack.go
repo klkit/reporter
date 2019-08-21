@@ -13,11 +13,10 @@ var (
 )
 
 type Slacker interface {
-	//Cheat for testing purpose
-	Error(msg string, args ...interface{})
+
 	CustomMsg(ops ...slack.MsgOption) error
-	Msg(attach slack.Attachment) error
 	Report(report Report) error
+
 }
 
 type slacker struct {
@@ -61,84 +60,84 @@ func (c *slacker) CustomMsg(ops ...slack.MsgOption) error {
 	return err
 }
 
-func (c *slacker) Msg(attach slack.Attachment) error {
-
-	_, _, err := c.api.PostMessage(
-		channel,
-		slack.MsgOptionAttachments(attach),
-		)
-	return err
-}
-func (c *slacker) Error(msg string, args ...interface{}) {
-	if len(args) > 0 {
-		msg = fmt.Sprintf(msg, args)
-	}
-
-	if _, _, err := c.api.PostMessage(
-		channel,
-		slack.MsgOptionText(msg, false),
-		slack.MsgOptionBroadcast(),
-	); err != nil {
-		fmt.Println("err ", err.Error())
-	}
-
-}
-func (c *slacker) Info(msg string, args ...interface{}) {
-	if len(args) > 0 {
-		msg = fmt.Sprintf(msg, args)
-	}
-
-	if _, _, err := c.api.PostMessage(
-		channel,
-		slack.MsgOptionText(msg, false),
-		slack.MsgOptionBroadcast(),
-	); err != nil {
-		fmt.Println("err ", err.Error())
-	}
-
-}
-func (c *slacker) Debug(msg string, args ...interface{}) {
-	if len(args) > 0 {
-		msg = fmt.Sprintf(msg, args)
-	}
-
-	if _, _, err := c.api.PostMessage(
-		channel,
-		slack.MsgOptionText(msg, false),
-		slack.MsgOptionBroadcast(),
-	); err != nil {
-		fmt.Println("err ", err.Error())
-	}
-
-}
-func (c *slacker) Warn(msg string, args ...interface{}) {
-	if len(args) > 0 {
-		msg = fmt.Sprintf(msg, args)
-	}
-
-	if _, _, err := c.api.PostMessage(
-		channel,
-		slack.MsgOptionText(msg, false),
-		slack.MsgOptionBroadcast(),
-	); err != nil {
-		fmt.Println("err ", err.Error())
-	}
-
-}
-func (c *slacker) Critical(msg string, args ...interface{}) {
-	if len(args) > 0 {
-		msg = fmt.Sprintf(msg, args)
-	}
-
-	if _, _, err := c.api.PostMessage(
-		channel,
-		slack.MsgOptionText(msg, false),
-		slack.MsgOptionBroadcast(),
-	); err != nil {
-		fmt.Println("err ", err.Error())
-	}
-
-}
+//func (c *slacker) Msg(attach slack.Attachment) error {
+//
+//	_, _, err := c.api.PostMessage(
+//		channel,
+//		slack.MsgOptionAttachments(attach),
+//		)
+//	return err
+//}
+//func (c *slacker) Error(msg string, args ...interface{}) {
+//	if len(args) > 0 {
+//		msg = fmt.Sprintf(msg, args)
+//	}
+//
+//	if _, _, err := c.api.PostMessage(
+//		channel,
+//		slack.MsgOptionText(msg, false),
+//		slack.MsgOptionBroadcast(),
+//	); err != nil {
+//		fmt.Println("err ", err.Error())
+//	}
+//
+//}
+//func (c *slacker) Info(msg string, args ...interface{}) {
+//	if len(args) > 0 {
+//		msg = fmt.Sprintf(msg, args)
+//	}
+//
+//	if _, _, err := c.api.PostMessage(
+//		channel,
+//		slack.MsgOptionText(msg, false),
+//		slack.MsgOptionBroadcast(),
+//	); err != nil {
+//		fmt.Println("err ", err.Error())
+//	}
+//
+//}
+//func (c *slacker) Debug(msg string, args ...interface{}) {
+//	if len(args) > 0 {
+//		msg = fmt.Sprintf(msg, args)
+//	}
+//
+//	if _, _, err := c.api.PostMessage(
+//		channel,
+//		slack.MsgOptionText(msg, false),
+//		slack.MsgOptionBroadcast(),
+//	); err != nil {
+//		fmt.Println("err ", err.Error())
+//	}
+//
+//}
+//func (c *slacker) Warn(msg string, args ...interface{}) {
+//	if len(args) > 0 {
+//		msg = fmt.Sprintf(msg, args)
+//	}
+//
+//	if _, _, err := c.api.PostMessage(
+//		channel,
+//		slack.MsgOptionText(msg, false),
+//		slack.MsgOptionBroadcast(),
+//	); err != nil {
+//		fmt.Println("err ", err.Error())
+//	}
+//
+//}
+//func (c *slacker) Critical(msg string, args ...interface{}) {
+//	if len(args) > 0 {
+//		msg = fmt.Sprintf(msg, args)
+//	}
+//
+//	if _, _, err := c.api.PostMessage(
+//		channel,
+//		slack.MsgOptionText(msg, false),
+//		slack.MsgOptionBroadcast(),
+//	); err != nil {
+//		fmt.Println("err ", err.Error())
+//	}
+//
+//}
 
 func SlackInstance() *slacker {
 	slacker := &slacker{}
