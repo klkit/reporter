@@ -1,4 +1,4 @@
-module gitlab.sendo.vn/longnd/spump
+module github.com/klkit/reporter
 
 go 1.12
 
