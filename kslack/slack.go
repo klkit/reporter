@@ -13,7 +13,6 @@ var (
 )
 
 type Slacker interface {
-
 	CustomMsg(ops ...slack.MsgOption) error
 	Report(report Report) error
 
