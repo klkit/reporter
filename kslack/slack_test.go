@@ -1,23 +1,23 @@
 package kslack
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/suite"
 	"testing"
 )
+
+
+
+type ReportSample struct {
+	Total int
+	New int
+}
+
+func (r ReportSample) ToSlackReport() Report {
+	return Report{}
+}
+
 var (
-	ReportTotalNotification = Report{
-		Key: "report#totalNotification",
-		Title:  "TotalNotification",
-		Fields: []ReportField{
-			{
-				Title: "MarketingNotification",
-			},
-			{
-				Title: "OrderNotification",
-			},
-		},
-	}
+	ReportTotalNotification = ReportSample{}
 )
 //region Test Slack
 type TestSlackSuite struct {
@@ -25,20 +25,9 @@ type TestSlackSuite struct {
 	slack Slacker
 }
 
-func (s *TestSlackSuite) SetupTest() {
-	fmt.Print("Setup test")
-}
-
-func (s *TestSlackSuite) TearUpTest() {
-	fmt.Print("Tear up test")
-}
-
-func (s *TestSlackSuite) TearDownTest() {
-	fmt.Print("Tear down test")
-}
 
 func (s *TestSlackSuite) Test_Report() {
-	if err := s.slack.Report(ReportTotalNotification); err != nil {
+	if err := s.slack.Report(ReportSample{}); err != nil {
 		return
 	}
 }

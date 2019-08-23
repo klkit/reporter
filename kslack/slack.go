@@ -14,8 +14,7 @@ var (
 
 type Slacker interface {
 	CustomMsg(ops ...slack.MsgOption) error
-	Report(report Report) error
-
+	Report(reportable Reportable) error
 }
 
 type slacker struct {
@@ -23,7 +22,8 @@ type slacker struct {
 	api    *slack.Client
 }
 
-func (c *slacker) Report(report Report) error {
+func (c *slacker) Report(reportable Reportable) error {
+	report := reportObj.ToSlackReport()
 	headerText := slack.NewTextBlockObject("plain_text", report.Title, false, false)
 	headerSection := slack.NewSectionBlock(headerText, []*slack.TextBlockObject{}, nil)
 
